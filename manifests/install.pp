@@ -82,7 +82,11 @@ class minio::install (
   String $service_provider        = $minio::service_provider,
   ) {
 
-  file { $storage_root:
+  zfs { 'data/minio':
+    ensure  => present,
+  }
+
+  -> file { $storage_root:
     ensure => 'directory',
     owner  => $owner,
     group  => $group,

@@ -45,8 +45,8 @@ class minio::config (
 
   $default_configuration = {
     'MINIO_ACCESS_KEY'  => 'admin',
-    'MINIO_SECRET_KEY'  => 'password',
-    'MINIO_REGION_NAME' => 'us-east-1',
+    'MINIO_SECRET_KEY'  => passgen_vault('minio_admin','','',['project'] ),
+    'MINIO_REGION_NAME' => "${::dc}-${::region}-wg-1",
   }
 
   $resulting_configuration = deep_merge($default_configuration, $configuration)
