@@ -108,15 +108,15 @@ class minio::install (
   }
 
   -> file { "${configuration_directory}/.minio/certs/private.key":
-    ensure => link,
-    target => '/srv/ssl/auto/srv.core.pw/srv.core.pw.key',
+    source => '/srv/ssl/auto/srv.core.pw/srv.core.pw.key',
     owner  => 'minio',
+    notify => Service['minio'],
   }
 
   -> file { "${configuration_directory}/.minio/certs/public.crt":
-    ensure => link,
-    target => '/srv/ssl/auto/srv.core.pw/srv.core.pw.crt',
+    source =>'/srv/ssl/auto/srv.core.pw/srv.core.pw.crt',
     owner  => 'minio',
+    notify => Service['minio'],
   }
 
   if ($package_ensure) {
