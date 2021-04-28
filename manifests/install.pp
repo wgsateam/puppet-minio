@@ -107,6 +107,18 @@ class minio::install (
     notify => Exec["permissions:${installation_directory}"],
   }
 
+  -> file { "${configuration_directory}/.minio/certs/private.key":
+    ensure => link,
+    target => '/srv/ssl/auto/srv.core.pw/srv.core.pw.key',
+    owner  => 'minio',
+  }
+
+  -> file { "${configuration_directory}/.minio/certs/public.crt":
+    ensure => link,
+    target => '/srv/ssl/auto/srv.core.pw/srv.core.pw.crt',
+    owner  => 'minio',
+  }
+
   if ($package_ensure) {
     $kernel_down=downcase($::kernel)
 
